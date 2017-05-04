@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lith.DocStore.Common;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace Lith.DocStore.Common
+namespace Lith.DocStore.ModelHelper
 {
     public class XMLModelHelper : IHelpModels
     {

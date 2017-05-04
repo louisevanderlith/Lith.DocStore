@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 namespace Lith.DocStore.Tests
 {
     [TestClass]
-    public class StoreContextTests
+    public class ModelContextTests
     {
-        public StoreContextTests()
+        public ModelContextTests()
         {
             ContextDataSetup.SetupDummyData();
         }
@@ -20,9 +20,9 @@ namespace Lith.DocStore.Tests
         [TestMethod]
         public void GetAllFromStore_NotEmpty()
         {
-            using (var ctx = new StoreContext())
+            using (var ctx = new ModelsContext())
             {
-                var actual = ctx.Set<Shop>();
+                var actual = ctx.Shops;
 
                 Assert.IsTrue(actual.Any());
             }
@@ -31,9 +31,9 @@ namespace Lith.DocStore.Tests
         [TestMethod]
         public void GetAllFromStore_withLinq_NotEmpty()
         {
-            using (var ctx = new StoreContext())
+            using (var ctx = new ModelsContext())
             {
-                var actual = from a in ctx.Set<Shop>()
+                var actual = from a in ctx.Shops
                              where a.Category == "Grocer"
                              select a;
 
@@ -50,14 +50,14 @@ namespace Lith.DocStore.Tests
                 Name = "Supermarket"
             };
 
-            using (var ctx = new StoreContext())
+            using (var ctx = new ModelsContext())
             {
-                ctx.Add(shopA);
+                ctx.Shops.Add(shopA);
             }
 
-            using (var ctx = new StoreContext())
+            using (var ctx = new ModelsContext())
             {
-                var results = from a in ctx.Set<Shop>()
+                var results = from a in ctx.Shops
                               where a.Name == "Supermarket"
                               && a.Category == "A"
                               select a;
@@ -75,15 +75,15 @@ namespace Lith.DocStore.Tests
                 Name = "SupermarketX"
             };
 
-            using (var ctx = new StoreContext())
+            using (var ctx = new ModelsContext())
             {
-                ctx.Add(shopA);
+                ctx.Shops.Add(shopA);
                 ctx.Save();
             }
 
-            using (var ctx = new StoreContext())
+            using (var ctx = new ModelsContext())
             {
-                var results = from a in ctx.Set<Shop>()
+                var results = from a in ctx.Shops
                               where a.Name == "SupermarketX"
                               && a.Category == "XX"
                               select a;
@@ -101,11 +101,11 @@ namespace Lith.DocStore.Tests
                 Name = "Supermarket"
             };
 
-            using (var ctx = new StoreContext())
+            using (var ctx = new ModelsContext())
             {
-                ctx.Add(shopA);
+                ctx.Shops.Add(shopA);
 
-                var results = from a in ctx.Set<Shop>()
+                var results = from a in ctx.Shops
                               where a.Name == "Supermarket"
                               && a.Category == "A"
                               select a;
@@ -129,11 +129,11 @@ namespace Lith.DocStore.Tests
                 Name = "Other"
             };
 
-            using (var ctx = new StoreContext())
+            using (var ctx = new ModelsContext())
             {
-                ctx.AddRange(new List<Shop> { shopA, shopB });
+                ctx.Shops.AddRange(new List<Shop> { shopA, shopB });
 
-                var results = from a in ctx.Set<Shop>()
+                var results = from a in ctx.Shops
                               where (a.Name == "Supermarket" && a.Category == "A")
                               || (a.Name == "Other" && a.Category == "B")
                               select a;
@@ -145,14 +145,14 @@ namespace Lith.DocStore.Tests
         [TestMethod]
         public void UpdateModelInStore_MustHaveNewValue()
         {
-            using (var ctx = new StoreContext())
+            using (var ctx = new ModelsContext())
             {
-                var itemToUpdate = ctx.Set<Shop>().FirstOrDefault(a => !a.IsDeleted);
+                var itemToUpdate = ctx.Shops.FirstOrDefault(a => !a.IsDeleted);
                 var oldName = itemToUpdate.Name;
 
                 itemToUpdate.Name += "CHANGED";
 
-                var results = from a in ctx.Set<Shop>()
+                var results = from a in ctx.Shops
                               where a.Name == oldName + "CHANGED"
                               select a;
 

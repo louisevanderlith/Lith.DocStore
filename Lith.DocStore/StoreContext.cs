@@ -8,73 +8,73 @@ using System.Threading.Tasks;
 
 namespace Lith.DocStore
 {
-    public class StoreContext : IDisposable
+    public class StoreContext : IDisposable, IStoreContext
     {
-        private readonly KeyRing keyRing;
-        private readonly IList<IStoreable> setItems;
+        private readonly IList<IStoreable> entries;
+        private readonly IHelpModels modelHelper;
 
-        public StoreContext()
+        public StoreContext(IHelpModels modelHelper)
         {
-            this.keyRing = new KeyRing();
-            this.setItems = new List<IStoreable>();
-        }
-
-        public IList<T> Set<T>() where T : IStoreable
-        {
-            var items = GetFreshItems<T>();
-
-            foreach (var item in items)
+            if (modelHelper == null)
             {
-                setItems.Add(item);
+                throw new ArgumentNullException(nameof(modelHelper));
             }
 
-            return (from s in setItems
-                    where s is T
-                    select (T)s).ToList();
+            this.entries = new List<IStoreable>();
+            this.modelHelper = modelHelper;
+
+            LoadProperties();
         }
 
-        private List<T> GetFreshItems<T>() where T : IStoreable
+        public IHelpModels ModelHelper
         {
-            var manager = new Manager(new JSONModelHelper());
-            var sectionName = typeof(T).Name;
-            var onRingKeys = keyRing.GetKeysInSection(sectionName);
-            var onRAMKeys = setItems.Select(s => s.ID);
-
-            // We don't wan't items we already have in memory, they could have been updated.
-            return (from a in onRingKeys
-                    where !onRAMKeys.Contains(a.ID)
-                    select manager.Load<T>(a.ID)).ToList();
-        }
-
-        public void Add<T>(T model) where T : IStoreable
-        {
-            setItems.Add(model);
-        }
-
-        public void AddRange<T>(IEnumerable<T> models) where T : IStoreable
-        {
-            foreach (var model in models)
+            get
             {
-                setItems.Add(model);
+                return this.modelHelper;
             }
         }
 
-        public void Save()
+        public IList<IStoreable> Entities
         {
-            var manager = new Manager(new JSONModelHelper());
+            get
+            {
+                return entries;
+            }
+        }
 
-            foreach (var item in setItems)
+        public virtual void Save()
+        {
+            var manager = new Manager(modelHelper);
+
+            foreach (var item in entries)
             {
                 manager.Save(item);
             }
 
-            setItems.Clear();
+            entries.Clear();
+        }
+
+        private void LoadProperties()
+        {
+            var type = this.GetType();
+            var properties = type.GetProperties();
+
+            foreach (var property in properties)
+            {
+                var propertyCtor = property.PropertyType.GetConstructor(new Type[] { typeof(IStoreContext) });
+
+                if (propertyCtor != null)
+                {
+                    var value = propertyCtor.Invoke(new object[] { this });
+
+                    property.SetValue(this, value);
+                }
+            }
         }
 
         public void Dispose()
         {
-            keyRing.Dispose();
-            setItems.Clear();
+            entries.Clear();
         }
     }
 }

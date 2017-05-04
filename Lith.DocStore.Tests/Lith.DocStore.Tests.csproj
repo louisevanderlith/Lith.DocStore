@@ -54,14 +54,18 @@
     <Compile Include="KeyForgeTests.cs" />
     <Compile Include="KeyRingTests.cs" />
     <Compile Include="ManagerTests.cs" />
+    <Compile Include="ModelContextTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StoreContextTests.cs" />
     <Compile Include="SupportingUtils\ContextDataSetup.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Lith.DocStore.Common\Lith.DocStore.Common.csproj">
       <Project>{083bd9fe-b78f-43d3-a6e3-f2c8d1141e40}</Project>
       <Name>Lith.DocStore.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lith.DocStore.ModelHelper\Lith.DocStore.ModelHelper.csproj">
+      <Project>{f1989c13-2ea2-40d5-bd6d-7840c1128560}</Project>
+      <Name>Lith.DocStore.ModelHelper</Name>
     </ProjectReference>
     <ProjectReference Include="..\Lith.DocStore.Models\Lith.DocStore.Models.csproj">
       <Project>{fc6153a7-6594-4db3-a5bc-2ea73b7c37a5}</Project>
