@@ -1,11 +1,8 @@
 ﻿using Lith.DocStore.Models;
 using Lith.DocStore.Tests.SupportingUtils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lith.DocStore.Tests
 {
