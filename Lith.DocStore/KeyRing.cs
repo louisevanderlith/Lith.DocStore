@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Lith.DocStore
 {
-    public class KeyRing : IDisposable
+    public sealed class KeyRing : IDisposable
     {
         public IEnumerable<KeyOnRing> Keys { get; private set; }
 
@@ -69,9 +69,30 @@ namespace Lith.DocStore
             return result;
         }
 
+        #region IDisposable Support
+        private bool disposedValue = false;
+
+        void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    // TODO: dispose managed state (managed objects).
+                }
+
+                Keys = null;
+
+                disposedValue = true;
+            }
+        }
+
         public void Dispose()
         {
-            Keys = null;
+            Dispose(true);
         }
+        #endregion
+
+
     }
 }

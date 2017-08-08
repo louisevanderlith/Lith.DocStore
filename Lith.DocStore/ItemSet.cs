@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Lith.DocStore
 {
-    public class ItemSet<T> : IEnumerable<T>, IEnumerable where T : class, IStoreable
+    public class ItemSet<T> : IEnumerable<T>, IEnumerable, IDisposable where T : class, IStoreable
     {
         private readonly IStoreContext context;
         private readonly KeyRing keyRing;
@@ -60,6 +60,11 @@ namespace Lith.DocStore
             return (from a in onRingKeys
                     where !onRAMKeys.Contains(a.ID)
                     select manager.Load<T>(a.ID)).ToList();
+        }
+
+        public void Dispose()
+        {
+            keyRing.Dispose();
         }
     }
 }
