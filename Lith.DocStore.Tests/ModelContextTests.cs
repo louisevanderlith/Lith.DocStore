@@ -1,11 +1,9 @@
-﻿using Lith.DocStore.Models;
+﻿using Lith.DocStore.ModelHelper;
+using Lith.DocStore.Models;
 using Lith.DocStore.Tests.SupportingUtils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lith.DocStore.Tests
 {
@@ -20,7 +18,8 @@ namespace Lith.DocStore.Tests
         [TestMethod]
         public void GetAllFromStore_NotEmpty()
         {
-            using (var ctx = new ModelsContext())
+            var modelHelper = new JSONModelHelper();
+            using (var ctx = new ModelsContext(modelHelper))
             {
                 var actual = ctx.Shops;
 
@@ -31,7 +30,8 @@ namespace Lith.DocStore.Tests
         [TestMethod]
         public void GetAllFromStore_withLinq_NotEmpty()
         {
-            using (var ctx = new ModelsContext())
+            var modelHelper = new JSONModelHelper();
+            using (var ctx = new ModelsContext(modelHelper))
             {
                 var actual = from a in ctx.Shops
                              where a.Category == "Grocer"
@@ -50,12 +50,13 @@ namespace Lith.DocStore.Tests
                 Name = "Supermarket"
             };
 
-            using (var ctx = new ModelsContext())
+            var modelHelper = new JSONModelHelper();
+            using (var ctx = new ModelsContext(modelHelper))
             {
                 ctx.Shops.Add(shopA);
             }
 
-            using (var ctx = new ModelsContext())
+            using (var ctx = new ModelsContext(modelHelper))
             {
                 var results = from a in ctx.Shops
                               where a.Name == "Supermarket"
@@ -75,13 +76,14 @@ namespace Lith.DocStore.Tests
                 Name = "SupermarketX"
             };
 
-            using (var ctx = new ModelsContext())
+            var modelHelper = new JSONModelHelper();
+            using (var ctx = new ModelsContext(modelHelper))
             {
                 ctx.Shops.Add(shopA);
                 ctx.Save();
             }
 
-            using (var ctx = new ModelsContext())
+            using (var ctx = new ModelsContext(modelHelper))
             {
                 var results = from a in ctx.Shops
                               where a.Name == "SupermarketX"
@@ -101,7 +103,8 @@ namespace Lith.DocStore.Tests
                 Name = "Supermarket"
             };
 
-            using (var ctx = new ModelsContext())
+            var modelHelper = new JSONModelHelper();
+            using (var ctx = new ModelsContext(modelHelper))
             {
                 ctx.Shops.Add(shopA);
 
@@ -129,7 +132,8 @@ namespace Lith.DocStore.Tests
                 Name = "Other"
             };
 
-            using (var ctx = new ModelsContext())
+            var modelHelper = new JSONModelHelper();
+            using (var ctx = new ModelsContext(modelHelper))
             {
                 ctx.Shops.AddRange(new List<Shop> { shopA, shopB });
 
@@ -145,7 +149,8 @@ namespace Lith.DocStore.Tests
         [TestMethod]
         public void UpdateModelInStore_MustHaveNewValue()
         {
-            using (var ctx = new ModelsContext())
+            var modelHelper = new JSONModelHelper();
+            using (var ctx = new ModelsContext(modelHelper))
             {
                 var itemToUpdate = ctx.Shops.FirstOrDefault(a => !a.IsDeleted);
                 var oldName = itemToUpdate.Name;

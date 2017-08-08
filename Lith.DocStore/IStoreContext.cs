@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Lith.DocStore.Common;
 using Lith.DocStore.Interfaces;
-using Lith.DocStore.Common;
+using System.Collections.Generic;
 
 namespace Lith.DocStore
 {

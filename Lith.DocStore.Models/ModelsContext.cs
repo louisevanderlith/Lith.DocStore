@@ -1,16 +1,11 @@
-﻿using Lith.DocStore.ModelHelper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Lith.DocStore.Common;
 
 namespace Lith.DocStore.Models
 {
     public class ModelsContext : StoreContext
     {
-        public ModelsContext()
-            : base(new JSONModelHelper())
+        public ModelsContext(IHelpModels modelHelper)
+            : base(modelHelper)
         {
 
         }
