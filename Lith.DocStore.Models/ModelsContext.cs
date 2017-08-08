@@ -5,10 +5,7 @@ namespace Lith.DocStore.Models
     public class ModelsContext : StoreContext
     {
         public ModelsContext(IHelpModels modelHelper)
-            : base(modelHelper)
-        {
-
-        }
+            : base(modelHelper) { }
 
         public ItemSet<Shop> Shops { get; set; }
 
