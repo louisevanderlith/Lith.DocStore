@@ -9,10 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lith.DocStore.Models", "Lit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lith.DocStore.Tests", "Lith.DocStore.Tests\Lith.DocStore.Tests.csproj", "{04A797D0-F196-47E2-A973-A1F99F1C4DD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lith.DocStore.Common", "Lith.DocStore.Common\Lith.DocStore.Common.csproj", "{083BD9FE-B78F-43D3-A6E3-F2C8D1141E40}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lith.DocStore.ModelHelper", "Lith.DocStore.ModelHelper\Lith.DocStore.ModelHelper.csproj", "{F1989C13-2EA2-40D5-BD6D-7840C1128560}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,14 +27,6 @@ Global
 		{04A797D0-F196-47E2-A973-A1F99F1C4DD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04A797D0-F196-47E2-A973-A1F99F1C4DD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04A797D0-F196-47E2-A973-A1F99F1C4DD4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{083BD9FE-B78F-43D3-A6E3-F2C8D1141E40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{083BD9FE-B78F-43D3-A6E3-F2C8D1141E40}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{083BD9FE-B78F-43D3-A6E3-F2C8D1141E40}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{083BD9FE-B78F-43D3-A6E3-F2C8D1141E40}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F1989C13-2EA2-40D5-BD6D-7840C1128560}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F1989C13-2EA2-40D5-BD6D-7840C1128560}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F1989C13-2EA2-40D5-BD6D-7840C1128560}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F1989C13-2EA2-40D5-BD6D-7840C1128560}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

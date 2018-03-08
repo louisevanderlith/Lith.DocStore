@@ -1,4 +1,4 @@
-﻿namespace Lith.DocStore.Common
+﻿namespace Lith.DocStore
 {
     public static class PathHelper
     {

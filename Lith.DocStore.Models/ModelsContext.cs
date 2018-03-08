@@ -1,6 +1,4 @@
-﻿using Lith.DocStore.Common;
-
-namespace Lith.DocStore.Models
+﻿namespace Lith.DocStore.Models
 {
     public class ModelsContext : StoreContext
     {

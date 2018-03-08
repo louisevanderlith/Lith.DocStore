@@ -1,5 +1,4 @@
-﻿using Lith.DocStore.Common;
-using System.IO;
+﻿using System.IO;
 using System.Text;
 using System.Xml.Serialization;
 

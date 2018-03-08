@@ -48,14 +48,6 @@
     <Compile Include="Transaction.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Lith.DocStore.Common\Lith.DocStore.Common.csproj">
-      <Project>{083BD9FE-B78F-43D3-A6E3-F2C8D1141E40}</Project>
-      <Name>Lith.DocStore.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Lith.DocStore.ModelHelper\Lith.DocStore.ModelHelper.csproj">
-      <Project>{f1989c13-2ea2-40d5-bd6d-7840c1128560}</Project>
-      <Name>Lith.DocStore.ModelHelper</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Lith.DocStore\Lith.DocStore.csproj">
       <Project>{58a871de-ccfe-4b7b-80e6-95cd5b821536}</Project>
       <Name>Lith.DocStore</Name>

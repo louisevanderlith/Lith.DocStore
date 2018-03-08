@@ -1,5 +1,4 @@
-﻿using Lith.DocStore.Common;
-using Lith.DocStore.ModelHelper;
+﻿using Lith.DocStore.ModelHelper;
 using Lith.DocStore.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;

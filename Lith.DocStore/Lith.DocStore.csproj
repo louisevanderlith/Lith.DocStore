@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -47,14 +51,15 @@
     <Compile Include="KeyOnRing.cs" />
     <Compile Include="KeyRing.cs" />
     <Compile Include="Manager.cs" />
+    <Compile Include="IHelpModels.cs" />
+    <Compile Include="ModelHelper\JSONModelHelper.cs" />
+    <Compile Include="ModelHelper\XMLModelHelper.cs" />
+    <Compile Include="PathHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StoreContext.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Lith.DocStore.Common\Lith.DocStore.Common.csproj">
-      <Project>{083bd9fe-b78f-43d3-a6e3-f2c8d1141e40}</Project>
-      <Name>Lith.DocStore.Common</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
