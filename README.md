@@ -12,6 +12,9 @@ The idea behind this is that you can run unit tests against models and logic wit
 3.  Can be used instead of having the need to create a database when building a new project
 4.  Any other benefits I couldn't think of.
 
+# Installation
+nuget: [install-package lith.docstore](https://www.nuget.org/packages/Lith.DocStore)
+
 # Usage
 1. Create Models
 ```C#
