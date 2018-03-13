@@ -7,10 +7,13 @@ Lith.DocStore provides interfaces that allow you to create physical data files w
 The idea behind this is that you can run unit tests against models and logic without commiting to a database or having a connection.
 
 # Benefits
-1.  Models live in a seperate project.
+1.  Models can live in a seperate project, which reduces the need for DTO project/objects.
 2.  No setup apart from Creating your models
 3.  Can be used instead of having the need to create a database when building a new project
 4.  Any other benefits I couldn't think of.
+
+# Installation
+nuget: [install-package lith.docstore](https://www.nuget.org/packages/Lith.DocStore)
 
 # Usage
 1. Create Models
@@ -41,7 +44,7 @@ The idea behind this is that you can run unit tests against models and logic wit
   public class ModelsContext : StoreContext
     {
         public ModelsContext()
-            : base(new YourModelSerializer())
+            : base(new JSONModelHelper())
         {
 
         }
@@ -54,7 +57,7 @@ The idea behind this is that you can run unit tests against models and logic wit
     }
 ```
 
-3. Add to your Model
+3. Add Record
 ```C#
   var shopA = new Shop
   {
@@ -69,7 +72,7 @@ The idea behind this is that you can run unit tests against models and logic wit
   }
 ```
 
-4. Query your Model
+4. Query Record
 ```C#
   using (var ctx = new ModelsContext())
   {
@@ -80,4 +83,15 @@ The idea behind this is that you can run unit tests against models and logic wit
   }
 ```
 
-5. Have a cold one ;)
+5. Find and Update Record
+```C#
+	using(var ctx = new ModelsContext())
+	{
+		var item = ctx.Shops.Find(id);
+		item.Name = "DEF";
+
+		ctx.Save();
+	}
+```
+
+6. Have a cold one ;)

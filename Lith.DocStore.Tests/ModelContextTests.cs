@@ -2,6 +2,7 @@
 using Lith.DocStore.Models;
 using Lith.DocStore.Tests.SupportingUtils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -162,6 +163,37 @@ namespace Lith.DocStore.Tests
                               select a;
 
                 Assert.IsTrue(results.Any());
+            }
+        }
+
+        [TestMethod]
+        public void FindAndUpdateModel_MustFindObject()
+        {
+            var modelHelper = new JSONModelHelper();
+            var itemID = Guid.Empty;
+
+            using (var ctx = new ModelsContext(modelHelper))
+            {
+                var tops = ctx.Shops.FirstOrDefault(a => a.Name == "Tops");
+                itemID = tops.ID;
+            }
+
+            using (var ctx = new ModelsContext(modelHelper))
+            {
+                var item = ctx.Shops.Find(itemID);
+
+                if (item != null)
+                {
+                    item.Name += " 2nd";
+
+                    var result = ctx.Shops.Find(itemID);
+                    
+                    Assert.AreEqual("Tops 2nd", result.Name);
+                }
+                else
+                {
+                    Assert.Fail("Couldn't find Item by ID");
+                }
             }
         }
     }

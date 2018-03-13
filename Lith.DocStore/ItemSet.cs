@@ -49,6 +49,23 @@ namespace Lith.DocStore
             }
         }
 
+        public T Find(Guid ID)
+        {
+            var result = setItems.FirstOrDefault(a => !a.IsDeleted && a.ID == ID);
+
+            if (result == null)
+            {
+                var ctxResult = context.Entities.FirstOrDefault(a => !a.IsDeleted && a.ID == ID);
+
+                if (ctxResult is T)
+                {
+                    result = ctxResult as T;
+                }
+            }
+
+            return result;
+        }
+
         private List<T> GetFreshItems()
         {
             var manager = new Manager(context.ModelHelper);
