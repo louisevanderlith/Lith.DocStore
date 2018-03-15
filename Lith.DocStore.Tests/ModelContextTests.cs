@@ -187,12 +187,53 @@ namespace Lith.DocStore.Tests
                     item.Name += " 2nd";
 
                     var result = ctx.Shops.Find(itemID);
-                    
+
                     Assert.AreEqual("Tops 2nd", result.Name);
                 }
                 else
                 {
                     Assert.Fail("Couldn't find Item by ID");
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SaveNestedObject_MustHaveID()
+        {
+            var modelHelper = new JSONModelHelper();
+
+            using (var ctx = new ModelsContext(modelHelper))
+            {
+                var ashop = ctx.Shops.FirstOrDefault();
+
+                foreach (var product in ashop.Products)
+                {
+                    if (product.ID == Guid.Empty)
+                    {
+                        Assert.Fail("Nested property ID is empty.");
+                        break;
+                    }
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SaveNestedObject_MustCreateSeperateRecord()
+        {
+            var modelHelper = new JSONModelHelper();
+
+            using (var ctx = new ModelsContext(modelHelper))
+            {
+                var ashop = ctx.Shops.FirstOrDefault();
+
+                foreach (var product in ashop.Products)
+                {
+                    var aproduct = ctx.Products.Find(product.ID);
+
+                    if (aproduct == null)
+                    {
+                        Assert.Fail("Seperate record not created.");
+                    }
                 }
             }
         }

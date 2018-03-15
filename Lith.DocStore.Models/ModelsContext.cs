@@ -10,5 +10,7 @@
         public ItemSet<Transaction> Transactions { get; set; }
 
         public ItemSet<Summary> Summaries { get; set; }
+
+        public ItemSet<Product> Products { get; set; }
     }
 }

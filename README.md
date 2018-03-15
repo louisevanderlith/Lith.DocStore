@@ -41,20 +41,20 @@ nuget: [install-package lith.docstore](https://www.nuget.org/packages/Lith.DocSt
 
 2. Setup Context
 ```C#
-  public class ModelsContext : StoreContext
-    {
-        public ModelsContext()
-            : base(new JSONModelHelper())
-        {
+	public class ModelsContext : StoreContext
+	{
+		public ModelsContext()
+			: base(new JSONModelHelper())
+		{
 
-        }
+		}
 
-        public ItemSet<Shop> Shops { get; set; }
+		public ItemSet<Shop> Shops { get; set; }
 
-        public ItemSet<Transaction> Transactions { get; set; }
+		public ItemSet<Transaction> Transactions { get; set; }
 
-        public ItemSet<Summary> Summaries { get; set; }
-    }
+		public ItemSet<Summary> Summaries { get; set; }
+	}
 ```
 
 3. Add Record
@@ -85,13 +85,13 @@ nuget: [install-package lith.docstore](https://www.nuget.org/packages/Lith.DocSt
 
 5. Find and Update Record
 ```C#
-	using(var ctx = new ModelsContext())
-	{
-		var item = ctx.Shops.Find(id);
-		item.Name = "DEF";
+    using(var ctx = new ModelsContext())
+    {
+        var item = ctx.Shops.Find(id);
+        item.Name = "DEF";
 
-		ctx.Save();
-	}
+        ctx.Save();
+    }
 ```
 
 6. Have a cold one ;)

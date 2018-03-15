@@ -11,6 +11,11 @@ namespace Lith.DocStore.ModelHelper
 
         public string Stringify(object data)
         {
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            };
+
             return JsonConvert.SerializeObject(data);
         }
     }
