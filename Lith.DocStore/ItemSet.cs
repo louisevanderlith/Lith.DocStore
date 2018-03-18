@@ -10,7 +10,6 @@ namespace Lith.DocStore
     {
         private readonly IStoreContext context;
         private readonly KeyRing keyRing;
-        private IList<T> setItems;
 
         public ItemSet(IStoreContext context)
         {
@@ -21,12 +20,16 @@ namespace Lith.DocStore
 
             this.context = context;
             this.keyRing = new KeyRing();
-            this.setItems = GetFreshItems();
+            this.context.Entities.AddRange(GetFreshItems());
         }
 
         public IEnumerator<T> GetEnumerator()
         {
-            return setItems.GetEnumerator();
+            var itemSet = from a in context.Entities
+                          where a.GetType() == typeof(T)
+                          select (T)a;
+
+            return itemSet.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -36,7 +39,6 @@ namespace Lith.DocStore
 
         public void Add(T model)
         {
-            setItems.Add(model);
             context.Entities.Add(model);
         }
 
@@ -44,14 +46,13 @@ namespace Lith.DocStore
         {
             foreach (var model in models)
             {
-                setItems.Add(model);
                 context.Entities.Add(model);
             }
         }
 
         public T Find(Guid ID)
         {
-            var result = setItems.FirstOrDefault(a => !a.IsDeleted && a.ID == ID);
+            var result = context.Entities.FirstOrDefault(a => !a.IsDeleted && a.ID == ID);
 
             if (result == null)
             {
@@ -63,7 +64,7 @@ namespace Lith.DocStore
                 }
             }
 
-            return result;
+            return (T)result;
         }
 
         private List<T> GetFreshItems()
@@ -71,7 +72,7 @@ namespace Lith.DocStore
             var manager = new Manager(context.ModelHelper);
             var sectionName = typeof(T).Name;
             var onRingKeys = keyRing.GetKeysInSection(sectionName);
-            var onRAMKeys = setItems != null ? setItems.Select(s => s.ID) : new List<Guid>();
+            var onRAMKeys = context.Entities.Any() ? context.Entities.Select(s => s.ID) : new List<Guid>();
 
             // We don't wan't items we already have in memory, they could have been updated.
             return (from a in onRingKeys

@@ -6,7 +6,7 @@ namespace Lith.DocStore
 {
     public class StoreContext : IDisposable, IStoreContext
     {
-        private readonly IList<IStoreable> entries;
+        private readonly List<IStoreable> entries;
         private readonly IHelpModels modelHelper;
 
         public StoreContext(IHelpModels modelHelper)
@@ -30,7 +30,7 @@ namespace Lith.DocStore
             }
         }
 
-        public IList<IStoreable> Entities
+        public List<IStoreable> Entities
         {
             get
             {
@@ -47,7 +47,7 @@ namespace Lith.DocStore
                 manager.Save(item);
             }
 
-            entries.Clear();
+            //entries.Clear();
         }
 
         private void LoadProperties()

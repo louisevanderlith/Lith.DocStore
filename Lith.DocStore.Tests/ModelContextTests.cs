@@ -237,5 +237,64 @@ namespace Lith.DocStore.Tests
                 }
             }
         }
+
+        [TestMethod]
+        public void UpdateWithNestedObject_MustCreateRecord()
+        {
+            var modelHelper = new JSONModelHelper();
+            var shopID = Guid.Empty;
+
+            using (var ctx = new ModelsContext(modelHelper))
+            {
+                var ashop = ctx.Shops.FirstOrDefault();
+                shopID = ashop.ID;
+                var product = new Product
+                {
+                    Name = "Product X",
+                    Price = 12.54M
+                };
+
+                ashop.Products.Add(product);
+                ctx.Save();
+            }
+
+            using (var ctx = new ModelsContext(modelHelper))
+            {
+                var ashop = ctx.Shops.Find(shopID);
+                var addedProd = ashop.Products.FirstOrDefault(a => a.Name == "Product X");
+
+                if (addedProd == null)
+                {
+                    Assert.Fail("Added Product not Found!");
+                }
+            }
+        }
+
+        [TestMethod]
+        public void UpdateAndSave_MustCommit()
+        {
+            var modelHelper = new JSONModelHelper();
+            var itemID = Guid.Empty;
+
+            using (var ctx = new ModelsContext(modelHelper))
+            {
+                var item = ctx.Shops.FirstOrDefault();
+                itemID = item.ID;
+
+                item.Name += "CHANGED";
+
+                ctx.Save();
+            }
+
+            using (var ctx = new ModelsContext(modelHelper))
+            {
+                var shop = ctx.Shops.Find(itemID);
+
+                if (!shop.Name.EndsWith("CHANGED"))
+                {
+                    Assert.Fail("Shop not updated.");
+                }
+            }
+        }
     }
 }

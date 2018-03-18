@@ -5,7 +5,7 @@ namespace Lith.DocStore
 {
     public interface IStoreContext
     {
-        IList<IStoreable> Entities { get; }
+        List<IStoreable> Entities { get; }
         IHelpModels ModelHelper { get; }
 
         void Dispose();
